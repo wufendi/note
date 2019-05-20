@@ -1,0 +1,68 @@
+http://javascript.ruanyifeng.com/nodejs/npm.html#toc1
+npm常用命令：
+    npm help:查看 npm 命令列表
+    npm -l:查看各个命令的简单用法
+    npm -v:查看 npm 的版本
+    npm config list -l:查看 npm 的配置
+    npm init (-f / -y)：初始化生成一个新的package.json
+    npm set 设置环境变量
+        npm set init-author-name 'wfd'
+        npm set init-author-email 'wfd@163.com'
+        npm set init-author-url 'http://wfd.domain.com'
+        npm set init-license 'MIT'
+        上面的命令等于为npm init 设置了默认值，以后执行npm init的时候，package.json的作者姓名，邮件，主页，许可证字段就会自动血热预设值。这些信息会存放在用户主目录的~/.npmrc文件，使得用户不用每个项目输入。如果某个项目有不同的设置，可以正对该醒目运行npm config.
+    npm config set prefix $dir：上面的命令将指定的$dir目录，设为模块的全局安装目录。如果当前有这个目录的写权限，那么运行npm install的时候，就不再需要sudo命令授权了。
+    npm config set init.author.name $name
+    npm config set init.author.email $email
+    npm info *** ：命令可以查看***模块的具体信息
+    npm search：命令用于搜索npm仓库，它后面可以跟字符串，也可以跟正则表达式。
+    npm list：命令以树型结构列出当前项目安装的所有模块，以及它们依赖的模块。
+    npm list -global：会列出全局安装的模块。
+    npm list ***：会列出***安装的模块。
+    npm install ***： 本地安装。本地安装”指的是将一个模块下载到当前项目的node_modules子目录，然后只有在项目目录之中，才能调用这个模块。
+    npm install -g ***: 全局安装。“全局安装”指的是将一个模块安装到系统目录中，各个项目都可以调用。一般来说，全局安装只适用于工具模块，比如eslint和gulp。
+
+windows 10
+npm install -g create-react-app 安装成功后使用 create-react-app 报错：'create-react-app' 不是内部或外部命令，也不是可运行的程序或批处理文件。
+解决：***的用户变量（不是系统变量）=>Path:新增：C:\Program Files\nodejs\node_global
+（https://www.jianshu.com/p/03a76b2e7e00）
+
+npm install :安装package.json中dependencies与devDependencies；
+npm install *** 安装包安装到node_module目录中，不会修改package.json,运行npm install 命令，不会自动安装***
+npm install *** --save 安装包信息将加到dependencies（生产阶段的依赖）
+npm install *** --save-dev 安装包信息将会加到devDependencies（开发阶段的依赖）
+npm install *** --save-optional 安装包信息将会加到optionalDependencies（可选阶段的依赖）
+npm install –production或者注明NODE_ENV变量值为production时，会自动安装package.json 中dependencies下的依赖
+
+软件版本号命名规则：
+    完全的版本号定义,分三项：<主版本号>.<次版本号>.<修改版本号>，比如：1.0.0
+    主版本号（大版本）：功能模块有大的变动，比如增加多个模块或者整体架构发生变化。
+    次版本号（小版本）：和主版本相对而言，次版本号的升级对应的只是局部的变动。但该局部的变动造成了程序和以前版本不能兼容，或者对该程序以前的协作关系产生了破坏，或者是功能上有大的改进或增强。
+    修改版本号（补丁版本）：：局部的变动，主要是局部函数的功能改进，或者bug的修正，或者功能的扩充
+语义化版本规则：
+    1.2.3：
+    只接受修改版本（补丁版本）的更新：~1.2.3
+    接受次版本（小版本）更新：^1.2.3
+    接受主版本（大版本）更新：*
+    >=1.2.3:大于1.2.3
+    1.2.3:等于1.2.3
+
+npm update 的工作过程是这样的：
+    1.先到远程仓库查询最新版本
+    2.然后对比本地版本，如果本地版本不存在，或者远程版本较新
+    3.查看 package.json 中对应的语义版本规则
+    4.如果当前新版本符合语义规则，就更新，否则不更新
+
+package.json笔记：
+    package-lock.json: 用以记录当前状态下实际安装的各个npm package的具体来源和版本号
+    package.json:
+        "name":全部小写，没有空格，可以使用下划线或者横线 （必填）
+        "version": x.x.x的格式 （必填）
+        "description":用于描述信息，有助于搜索
+        "main": 入口文件，一般都是indecx.js
+        "scripts":支持的脚本
+        "keywords":关键字，有助于人们使用npm  search搜索时发现项目
+        "author":作者信息
+        "engines"：运行引擎，指明node.js运行所需要的版本
+        "respository"：资源仓库地址
+        "licenses"：授权方式
