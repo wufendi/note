@@ -1,0 +1,11 @@
+1.同源策略：
+    不同域名，端口，协议
+2.产生跨域原因：
+    1）DOM同源策略：禁止对不同源页面DOM进行操作。这里主要场景是iframe跨域的情况，不同域名的iframe是限制互相访问的
+    2）XMLHttpRequest同源策略：禁止使用XHR对象向不同源的服务器地址发起HTTP请求
+3.解决跨域：
+    1）JSONP：缺点：只支持GET请求
+    2）CORS
+    3）服务器代理
+    4）使用postMessage实现页面之间通信
+（https://zhuanlan.zhihu.com/p/28562290）

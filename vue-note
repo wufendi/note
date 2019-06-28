@@ -1,1 +1,6 @@
-1.web component规范
+1.web components
+    custom Element
+    shadow Dom
+    template
+    HTML Import
+ http://javascript.ruanyifeng.com/htmlapi/webcomponents.html
