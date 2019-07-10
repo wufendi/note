@@ -1,1 +1,47 @@
 https://juejin.im/post/5cd8d609e51d456e7b372155
+router = new vueRouter();
+route = history.current;
+
+install
+    this._routerRoot = this
+    this._router = this.$options.router
+    Vue.util.defineReactive(this, '_route', this._router.history.current)
+    Object.defineProperty(Vue.prototype, '$router', {
+        get () { return this._routerRoot._router }
+    })
+
+    Object.defineProperty(Vue.prototype, '$route', {
+        get () { return this._routerRoot._route }
+    })
+组件
+    this.$router
+    this.$route
+
+
+confirmTransition =>
+    const queue: Array<?NavigationGuard> = [].concat(
+          // in-component leave guards
+          extractLeaveGuards(deactivated),
+          // global before hooks
+          this.router.beforeHooks,
+          // in-component update hooks
+          extractUpdateHooks(updated),
+          // in-config enter guards
+          activated.map(m => m.beforeEnter),
+          // async components
+          resolveAsyncComponents(activated)
+        )
+    runQueue(queue,iterator, () => {
+         const enterGuards = extractEnterGuards(activated, postEnterCbs, isValid)
+         const queue = enterGuards.concat(this.router.resolveHooks)
+         runQueue(queue, iterator, () => {
+            onComplete()
+         })
+    })
+beforeRouteLeave
+beforeEach
+beforeRouteUpdate
+beforeEnter
+beforeRouteEnter
+resolveEach
+afterEach

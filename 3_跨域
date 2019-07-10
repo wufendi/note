@@ -9,3 +9,9 @@
     3）服务器代理
     4）使用postMessage实现页面之间通信
 （https://zhuanlan.zhihu.com/p/28562290）
+
+
+
+CORS产生条件:
+
+CORB(https://segmentfault.com/a/1190000016126079)

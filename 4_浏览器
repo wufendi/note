@@ -1,2 +1,34 @@
 1.作用：
+   搜索和展示信息资源（资源一般是html，也有可能是PDF，图片，或者其他类型）
 2.组成：
+    user interface
+    browser engine
+    render engine
+    network
+    javascript interpreter
+    ui backend
+    data persistence
+
+    user interface:
+        前进
+        后退
+        刷新
+        标签
+        地址栏输入框
+        ...
+3.工作过程
+    多进程
+        浏览器进程 （主进程）
+        渲染进程 （一般一个tab一个渲染进程，也可能一个站点一个渲染进程）
+        GPU进程
+        插件进程
+        ...
+
+        浏览器进程：UI线程，网络线程...
+        渲染进程：渲染主线程，ui渲染线程，工作线程
+            DOM tree（结构） => DOM tree + css （结构+大小）=> layout tree （结构 + 大小 + 位置） => 绘制 （结构 + 大小 + 位置 + 顺序）
+
+
+        浏览器进程里面ui线程 => 浏览器进程里面网络线程 => 浏览器进程里面ui线程 => 渲染进程
+
+
