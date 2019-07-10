@@ -3,6 +3,14 @@ html,body{
     height:100%;
     background: url('../images/jaychou.png');
 }
+ul{
+    padding: 10px;
+}
+li:first-of-type{
+    background: magenta;
+    color: blue;
+    padding: 0px;
+}
 .delete {
     padding: 0 10px;
     color: red;

@@ -18,6 +18,8 @@ const ul_data = [
     'test03',
     'test04',
     'test05',
+    'test06',
+    'test07'
 ];
 let template = '';
 ul_data.forEach(v => {
@@ -25,6 +27,7 @@ ul_data.forEach(v => {
 });
 $ul.html(template);
 $('ul .delete').on('click',function (e) {
+    debugger;
     let $li = $(this).parent('li');
     $li.remove();
 });

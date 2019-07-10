@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成html的插件
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin'); // CSS文件单独提取出来
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 清空打包目录的插件
+const Webpack = require('webpack'); //
 
 module.exports = {
    // mode: 'development',
@@ -17,9 +18,9 @@ module.exports = {
         login_test: './login.js' // 实际 require('./login.js')
     },
     output:{
-        filename: '[name].[chunkhash:4].js', // [name] 为 entry中对象的key
+        filename: '[name].js', // [name] 为 entry中对象的key
         path: path.resolve('dist'),
-        publicPath: '.'
+        //publicPath: './'
     },
     plugins:[
         new HtmlWebpackPlugin({
@@ -33,12 +34,13 @@ module.exports = {
             chunks: ['login_test']
         }),
         new MiniCssExtractPlugin({
-            filename: 'css/[name].[chunkhash:4].css'
+            filename: 'css/[name].[contenthash:4].css'
         }),
         //new ExtractTextWebpackPlugin('css/[name]_test.css'),
         new CleanWebpackPlugin({
             root: path.join(__dirname, 'dist')
         }),
+        new Webpack.HotModuleReplacementPlugin()
     ],
     module:{
         rules: [
@@ -63,5 +65,11 @@ module.exports = {
                 ]
             }
         ]
+    },
+    devtool: 'cheap-eval-source-map',
+    devServer: {
+        contentBase: path.resolve('dist'),
+        compress: true,
+        hot: true
     }
 };
