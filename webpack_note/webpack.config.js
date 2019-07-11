@@ -9,6 +9,7 @@ const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin'); // CSS�
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // 清空打包目录的插件
 const Webpack = require('webpack'); //
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
    // mode: 'development',
@@ -33,9 +34,9 @@ module.exports = {
             filename: 'login_test2.html',
             chunks: ['login_test']
         }),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:4].css'
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: 'css/[name].[contenthash:4].css'
+        // }),
         //new ExtractTextWebpackPlugin('css/[name]_test.css'),
         new CleanWebpackPlugin({
             root: path.join(__dirname, 'dist')
@@ -50,7 +51,29 @@ module.exports = {
                 // use: ExtractTextWebpackPlugin.extract({
                 //     use: 'css-loader'
                 // })
-                use:[MiniCssExtractPlugin.loader, 'css-loader']
+                use:[
+                   // { loader: MiniCssExtractPlugin.loader },
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: [autoprefixer(
+                                {
+
+                                    browsers: [
+                                        '>1%',
+                                        'last 4 versions',
+                                        'Firefox ESR',
+                                        'not ie < 9', // React doesn't support IE8 anyway
+                                    ],
+                                    flexbox: 'no-2009',
+                                }
+                            )]
+                        }
+
+                    }
+                ]
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
@@ -68,7 +91,7 @@ module.exports = {
     },
     devtool: 'cheap-eval-source-map',
     devServer: {
-        contentBase: path.resolve('dist'),
+        //contentBase: path.resolve('dist'),
         compress: true,
         hot: true
     }

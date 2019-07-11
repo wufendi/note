@@ -9,9 +9,13 @@ ul{
 li:first-of-type{
     background: magenta;
     color: blue;
-    padding: 0px;
+    padding: 0;
 }
 .delete {
     padding: 0 10px;
     color: red;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transform: scale(2);
+    transition: all .2s;
 }
