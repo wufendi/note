@@ -24,16 +24,26 @@ hash: 工程项目级别
 chunkhash: 据不同的入口文件(Entry)进行依赖文件解析、构建对应的chunk，生成对应的哈希值(eg,index.js引入index.css,此时如果css或者js任何一个改变chunkhash就会改变)
 contenthash: 是针对文件内容级别的，只有你自己模块的内容变了，那么hash值才改变
 
-
-
+Module:模块,在Webpack里一切皆模块，一个模块对应一个文件。Webpack会从配置的Entry开始递归找出所有依赖的模块
 chunk: webpack会为每个生成的Chunk取一个名称，Chunk的名称和Entry的配置有关：
         1.如果entry是一个string或者array，就只会生成一个chunk，这个chunk的名称是main;
         2.如果entry是一个object，就可能出现多个chunk，这时chunk的名称是object键值对里键的名称
 
 
+module:
+    rules: array
+        rule: 3个组成部分： 条件，结果，嵌套规则
+
+            条件：test/include/exclude/resource 被应用处理的模块  issuer 引入处理的模块
+                 resource/issuer
+                    rule.test = rule.resource.test; 如果你提供了一个 rule.test 选项，就不能再提供 rule.resource
+                    rule.include = rule.resource.include;如果你提供了 rule.include 选项，就不能再提供 rule.resource
+                    rule.exclude = rule.resource.exclude;如果你提供了 rule.exclude 选项，就不能再提供 rule.resource
+
+            结果：loader/options/use
+                rule.use eg:   use: [ "style-loader" ] = use: [ { loader: "style-loader "} ]
+                rule.loader 是 rule.use: [ { loader } ] 的简写
+                rule.options 和 rule.query 是 rule.use: [ { options } ] 的简写
 
 
 
-
-npm init
-npm install webpack webpack-cli --save-dev
