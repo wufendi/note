@@ -1,0 +1,62 @@
+配置文件方式：
+    1、在package.json中设置babel字段
+    2、.babelrc文件或.babelrc.js(一个是json文件一个是js文件）：针对的是文件夹，即该配置文件所在的文件夹包括子文件夹都会应用此配置文件的设置，而且下层配置文件会覆盖上层配置文件，通过此种方式可以给不同的目录设置不同的规则
+    3、 babel.config.js文件：针对整个项目，一个项目只有一个放在项目根目录
+    .babelrc文件放置在项目根目录和babel.config.js效果一致，如果两种类型的配置文件都存在，.babelrc会覆盖babel.config.js的配置
+
+组成：
+    @babel/core: Babel 的核心功能
+    @babel/cli: 是一个能够从终端（命令行）使用的工具。因为项目可能不太大，用不到构建工具 (webpack 或者 rollup)，于是在发布之前用 babel/cli 进行处理
+    @babel/node: 它的作用是在 node 环境中，直接运行 es2015 的代码，而不需要额外进行转码
+    @babel插件：babel 本身不具有任何转化功能，它把转化的功能都分解到一个个 plugin 里面。不配置插件，经过 babel 的代码和输入是相同的。
+                插件分两种：语法插件 eg:babel-plugin-syntax-trailing-function-commas
+                           转译插件 eg:abel-plugin-transform-es2015-arrow-functions
+    @babel预设: babel 还提供了一组插件的集合
+                包括：env, react, flow, minify等;
+                stage-x（0-3)废弃;
+                es201x(由于env的出现，es2016,es2017已经废弃，es2015经常单独使用),
+                latest（latest 是 env 的雏形，它是一个每年更新的 preset，目的是包含所有 es201x。但也是因为更加灵活的 env 的出现，已经废弃）
+执行顺序：
+    Plugin 会运行在 Preset 之前。
+    Plugin 会从前到后顺序执行。
+    Preset 的顺序则 刚好相反(从后向前)。
+
+    preset 的逆向顺序主要是为了保证向后兼容，因为大多数用户的编写顺序是 ['es2015', 'stage-0']。这样必须先执行 stage-0 才能确保 babel 不报错。因此我们编排 preset 的时候，也要注意顺序，其实只要按照规范的时间顺序列出即可。
+
+插件与preset的配置项：
+    简略情况下，插件和 preset 只要列出字符串格式的名字即可。
+    但如果某个 preset 或者插件需要一些配置项(或者说参数)，就需要把自己先变成数组。
+    第一个元素依然是字符串，表示自己的名字；第二个元素是一个对象，即配置对象。
+    presets": [
+        // 带了配置项，自己变成数组
+        [
+            // 第一个元素依然是名字
+            "env",
+            // 第二个元素是对象，列出配置项
+            {
+              "module": false
+            }
+        ],
+
+        // 不带配置项，直接列出名字
+        "stage-2"
+    ]
+
+babel-polyfill/babel-runtime/babel-plugin-transform-runtime
+    在使用 babel-plugin-transform-runtime 的时候必须把 babel-runtime 当做依赖.
+    babel-polyfill 主要有两个缺点:
+        1、使用 babel-polyfill 会导致打出来的包非常大，因为 babel-polyfill 是一个整体，把所有方法都加到原型链上。比如我们只使用了 Array.from，但它把 Object.defineProperty 也给加上了，这就是一种浪费了。这个问题可以通过单独使用 core-js 的某个类库来解决，core-js 都是分开的。
+        2、babel-polyfill 会污染全局变量，给很多类的原型链上都作了修改，如果我们开发的也是一个类库供其他开发者使用，这种情况就会变得非常不可控。
+
+
+babel 7 的一个重大变化，把所有 babel-* 重命名为 @babel/*
+    babel-cli 变成了 @babel/cli。
+    babel-preset-env 变成了 @babel/preset-env。进一步，还可以省略 preset 而简写为 @babel/env。
+    babel-plugin-transform-arrow-functions 变成了 @babel/plugin-transform-arrow-functions。和 preset 一样，plugin 也可以省略，于是简写为 @babel/transform-arrow-functions。
+
+
+
+
+
+https://juejin.im/post/5cf45f9f5188254032204df1
+https://zhuanlan.zhihu.com/p/43249121
