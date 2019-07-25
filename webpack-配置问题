@@ -29,3 +29,11 @@ contenthash: 是针对文件内容级别的，只有你自己模块的内容变�
 chunk: webpack会为每个生成的Chunk取一个名称，Chunk的名称和Entry的配置有关：
         1.如果entry是一个string或者array，就只会生成一个chunk，这个chunk的名称是main;
         2.如果entry是一个object，就可能出现多个chunk，这时chunk的名称是object键值对里键的名称
+
+
+
+
+
+
+npm init
+npm install webpack webpack-cli --save-dev

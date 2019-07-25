@@ -1,0 +1,38 @@
+/**
+ *Author: wufendi
+ *Date:2019-07-25 17:04
+ *Description: eslint配置文件
+ **/
+module.exports = { // https://eslint.bootcss.com/docs/user-guide/configuring
+    parserOptions: { // 支持的 JavaScript 语言选项,默认情况下，ESLint 支持 ECMAScript 5 语法
+        ecmaVersion: 6, // 2015 ；7（2016）；默认是5
+        sourceType: "module", // "script" (默认)
+        ecmaFeatures: { // 表示你想使用的额外的语言特性
+            jsx: true, // 启用 JSX
+            globalReturn: true, // - 允许在全局作用域下使用 return 语句
+            impliedStrict: true // 启用全局 strict mode (如果 ecmaVersion 是 5 或更高)
+        }
+    },
+    parser: "esprima", // ESLint 默认使用Espree作为其解析器，你可以在配置文件中指定一个不同的解析器;babel-eslint/typescript-eslint-parser
+    env: { // 一个环境定义了一组预定义的全局变量; 指定你想启用的环境，并设置它们为 true ;browser/node/commonjs/shared-node-browser/es6(该选项会自动设置 ecmaVersion 解析器选项为 6)/worker/amd/mocha/jamine/....
+        node: true,
+        browser: true
+    },
+    globals: { // 在配置文件里配置全局变量时，使用 globals 指出你要使用的全局变量。将变量设置为 true 将允许变量被重写，或 false 将不允许被重写
+        $: false
+    },
+    plugins: [ // ESLint 支持使用第三方插件
+     // "plugin1" //   "eslint-plugin-plugin1"
+    ],
+    rules: { // "off" (0) - 关闭规则; "warn"(1) 开启规则，使用警告级别的错误：warn (不会导致程序退出);"error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+        quotes: ["error", "double"]
+    },
+    root: true, //"root": true，它就会停止在父级目录中寻找。 默认情况下该项目如果父级目录有eslintrc.js配置文件会寻找父级目录的eslintrc.或者package.json里面的eslintConfig直到根目录。
+    extends: [], // 值为 "eslint:recommended" 启用一系列核心规则
+                // 值为 "standard"
+                // 值为 "plugin:react/recommended"
+                // 值为 "eslint:all"，启用当前安装的 ESLint 中所有的核心规则 不推荐
+                // 值为 可以是基本配置文件的绝对路径或相对路径
+    overrides: [ // 有时，你可能需要更精细的配置，比如，如果同一个目录下的文件需要有不同的配置。因此，你可以在配置中使用 overrides 键
+    ]
+};

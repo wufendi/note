@@ -1,0 +1,12 @@
+webpack.HotModuleReplacementPlugin 模块热更新
+    默认修改js时，浏览器会整体刷新，修改html 或者css 局部刷新
+    修改js,浏览器不整体刷新。则入口文件，对应要使用module.hot.accept
+    entry 里面不能加chunkhash
+tree shaking: 减少打包体积与Tree Shaking
+    https://cloud.tencent.com/developer/article/1432714
+    https://zhuanlan.zhihu.com/p/40052192
+    https://zhuanlan.zhihu.com/p/32831172
+clean-webpack-plugin:
+    引入：{CleanWebpackPlugin}
+        new CleanWebpackPlugin（param）// param为object类型
+webpack.optimize.CommonsChunkPlugin 移除 改用 optimization.splitChunks（与plugins同级）
