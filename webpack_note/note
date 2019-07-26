@@ -1,0 +1,32 @@
+babel-eslint: allows you to lint ALL valid Babel code with the fantastic ESLint.
+              ESLint's default parser and core rules only support the latest final ECMAScript standard and do not support experimental (such as new features) and non-standard (such as Flow or TypeScript types) syntax provided by Babel. babel-eslint is a parser that allows ESLint to run on source code that is transformed by Babel
+              总的来说babel-eslint就是将不能被常规linter解析的代码转换为能被常规解析的代码
+eslint:是一个用来识别 ECMAScript 并且按照规则给出报告的代码检测工具，使用它可以避免低级错误和统一代码的风格
+        配置方式两种： 在注视中配置：使用JavaScript注释直接把配置嵌入到JS文件中。
+                     配置文件：javascript：使用.eslintrc.js文件并导出一个包含配置的对象
+                              YAML：.eslintrc.yaml或者.eslintrc.yml
+                              JSON：.eslintrc.json，并且此文件允许使用JS形式的注释
+                              废弃的用法：.eslintrc，此文件可以是JSON或者YAML
+                              package.json：在package.json文件中创建eslintConfig属性，所有的配置包含在此属性中
+                              这些文件的优先级则是按照以上出现的顺序（.eslintrc.js > .eslintrc.yaml > .eslintrc.yml > .eslintrc.json > .eslintrc > package.json）
+eslint-loader:用于在 webpack 编译的时候检查代码，如果有错误，webpack 会报错
+css-loader:将 css 内容存为 js 字符串，并且会把 background, @font-face 等引用的图片，字体文件交给指定的 loader 打包
+style-loader:
+file-loader:
+url-loader: 把文件转为 Data URI 的格式内联到引用的地方
+html-loader: 将html内容转换为js字符串，eg:import htmlString from './template.html'
+html-webpack-plugin:
+webpack:
+webpack-cli:
+webpack-serve: 是 webpack 提供的用来开发调试的服务器
+babel-core: babel 的核心编译器
+babel-preset-env: 我们可以使用这个配置文件转换 ES2015/ES2016/ES2017 到 ES5
+babel-loader: webpack中使用babel
+vue-loader: vue，该文件需要被预编译后才能在浏览器中使用,可以将vue文件转换为JS模块,解析和转换 .vue 文件，提取出其中的逻辑代码 script、样式代码 style、以及 HTML 模版 template，再分别把它们交给对应的 Loader 去处理
+vue-template-compiler:单文件组件依赖于两个包 vue-loader / vue-template-compiler,把 vue-loader 提取出的 HTML 模版编译成对应的可执行的 JavaScript 代码，这和 React 中的 JSX 语法被编译成 JavaScript 代码类似。预先编译好 HTML 模版相对于在浏览器中再去编译 HTML 模版的好处在于性能更好。Vue 2.0 的模板预编译为渲染函数以避免运行时不必要的编译开销和 CSP 的限制
+vue-loader/lib/plugin: 职责是将 .vue 文件中的语言块应用在相应的 rules 上。例如样式匹配 /\.css$/的规则，那么它会应用到 .vue 文件里的 <style> 块，匹配 /\.js$/的规则会应用到 .vue 文件里的 <script> 块
+    (vue包括  完整版（编译器+运行时）、
+              编译器（将模板字符串编译成为 JavaScript 渲染函数的代码）、
+              运行时（用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码。基本上就是除去编译器的其它一切）)
+   如果安装vue-loader版本高于15.0 需要在webpack.config.js配置插件
+cross-env: 依赖用于跨平台设置环境变量(cross-env NODE_ENV=production)
