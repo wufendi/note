@@ -5,10 +5,17 @@
     .babelrc文件放置在项目根目录和babel.config.js效果一致，如果两种类型的配置文件都存在，.babelrc会覆盖babel.config.js的配置
 
 组成：
-    @babel/core: Babel 的核心功能
+    @babel/core: Babel 的核心功能 / AST转换的核心
     @babel/cli: 是一个能够从终端（命令行）使用的工具。因为项目可能不太大，用不到构建工具 (webpack 或者 rollup)，于是在发布之前用 babel/cli 进行处理
+    @babel/preset-env*: 把许多 @babel/plugin 综合了下，减少配置
+    @babel/plugin*: Babel 插件机制，Babel基础功能不满足的时候,手动添加些
+    @babel/runtime*: 把你使用到的浏览器某些不支持API，按需导入,代码少
+    @babel/polyfill: 把浏览器某些不支持API，兼容性代码全部导入到项目,不管你是不是用到,缺点是代码体积特别大
+    .babelrc/babel/config.js
+
+
     @babel/node: 它的作用是在 node 环境中，直接运行 es2015 的代码，而不需要额外进行转码
-    @babel插件：babel 本身不具有任何转化功能，它把转化的功能都分解到一个个 plugin 里面。不配置插件，经过 babel 的代码和输入是相同的。
+    @babel/plugin*：babel 本身不具有任何转化功能，它把转化的功能都分解到一个个 plugin 里面。不配置插件，经过 babel 的代码和输入是相同的。
                 插件分两种：语法插件 eg:babel-plugin-syntax-trailing-function-commas
                            转译插件 eg:abel-plugin-transform-es2015-arrow-functions
     @babel预设: babel 还提供了一组插件的集合
@@ -21,7 +28,9 @@
     Plugin 会从前到后顺序执行。
     Preset 的顺序则 刚好相反(从后向前)。
 
-    preset 的逆向顺序主要是为了保证向后兼容，因为大多数用户的编写顺序是 ['es2015', 'stage-0']。这样必须先执行 stage-0 才能确保 babel 不报错。因此我们编排 preset 的时候，也要注意顺序，其实只要按照规范的时间顺序列出即可。
+    preset 的逆向顺序主要是为了保证向后兼容，因为大多数用户的编写顺序是 ['es2015', 'stage-0']。
+    这样必须先执行 stage-0 才能确保 babel 不报错。因此我们编排 preset 的时候，也要注意顺序，其实只要按照规范的时间顺序列出即可.
+    eg:['es2015', 'es2016'] // 先转换es7 为 es6, 再将es6 转为 es5(如果正序，先转es6 转为es5, 然后es7 转es6,此时es6里面有些未转为es5)
 
 插件与preset的配置项：
     简略情况下，插件和 preset 只要列出字符串格式的名字即可。
@@ -47,6 +56,21 @@ babel-polyfill/babel-runtime/babel-plugin-transform-runtime
     babel-polyfill 主要有两个缺点:
         1、使用 babel-polyfill 会导致打出来的包非常大，因为 babel-polyfill 是一个整体，把所有方法都加到原型链上。比如我们只使用了 Array.from，但它把 Object.defineProperty 也给加上了，这就是一种浪费了。这个问题可以通过单独使用 core-js 的某个类库来解决，core-js 都是分开的。
         2、babel-polyfill 会污染全局变量，给很多类的原型链上都作了修改，如果我们开发的也是一个类库供其他开发者使用，这种情况就会变得非常不可控。
+    babel-polyfill和preset-env+useBuiltIns='usage'能实现按需加载
+    babel-runtime有个缺点：
+        1.它不模拟实例方法，即内置对象原型上的方法，所以类似Array.prototype.find，你通过babel-runtime是无法使用的
+
+babel-polyfill/babel-runtime(https://zhuanlan.zhihu.com/p/58624930)
+    babel 只是转换syntax层语法，babel 把 javascript 语法分为syntax和api
+        api: 指那些我们可以通过函数重新覆盖的语法，比如includes,map,Promise,凡是我们能想到的重写都可以归属到api。
+        syntax: 像箭头函数，let,const,class等，我们在JavaScript在运行时是无法重写的。
+    babel-polyfill就是专门负责api层面的 --save
+    babel-runtime和babel-polyfill一样，只是不会在原型链上做修改。babel-runtime使用还是要babel-polyfill一起配合使用 --save
+
+babel-runtime/babel-plugin-transform-runtime(两者一起使用)
+      babel-plugin-transform-runtime: 每个用到需要转换语法的文件都会在用到的文件里面生成帮助函数代码，公用代码冗余（包含babel-polyfill）--save-dev
+      babel-runtime：把用到的帮助函数代码都放在一起，用到的文件引入依赖即可 --save
+
 
 
 babel 7 的一个重大变化，把所有 babel-* 重命名为 @babel/*
@@ -57,6 +81,6 @@ babel 7 的一个重大变化，把所有 babel-* 重命名为 @babel/*
 
 
 
-
+https://zhuanlan.zhihu.com/p/58624930
 https://juejin.im/post/5cf45f9f5188254032204df1
 https://zhuanlan.zhihu.com/p/43249121
