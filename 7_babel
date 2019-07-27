@@ -43,7 +43,9 @@
             "env",
             // 第二个元素是对象，列出配置项
             {
-              "module": false
+              targets: {}
+              "module": false,
+              useBuiltIns: 'usage' 当值为usage时，依赖@babel/polyfill;entry:入口文件里引入的 @babel/polyfill
             }
         ],
 
@@ -62,13 +64,13 @@ babel-polyfill/babel-runtime/babel-plugin-transform-runtime
 
 babel-polyfill/babel-runtime(https://zhuanlan.zhihu.com/p/58624930)
     babel 只是转换syntax层语法，babel 把 javascript 语法分为syntax和api
-        api: 指那些我们可以通过函数重新覆盖的语法，比如includes,map,Promise,凡是我们能想到的重写都可以归属到api。
+        api: 指那些我们可以通过函数重新覆盖的语法，比如includes,map,Promise,Map凡是我们能想到的重写都可以归属到api。
         syntax: 像箭头函数，let,const,class等，我们在JavaScript在运行时是无法重写的。
     babel-polyfill就是专门负责api层面的 --save
     babel-runtime和babel-polyfill一样，只是不会在原型链上做修改。babel-runtime使用还是要babel-polyfill一起配合使用 --save
 
 babel-runtime/babel-plugin-transform-runtime(两者一起使用)
-      babel-plugin-transform-runtime: 每个用到需要转换语法的文件都会在用到的文件里面生成帮助函数代码，公用代码冗余（包含babel-polyfill）--save-dev
+      babel-plugin-transform-runtime: 每个用到需要转换语法的文件都会在用到的文件里面生成帮助函数代码，公用代码冗余(必须配合babel-runtime使用)--save-dev
       babel-runtime：把用到的帮助函数代码都放在一起，用到的文件引入依赖即可 --save
 
 

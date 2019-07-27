@@ -11,4 +11,5 @@ clean-webpack-plugin:
         new CleanWebpackPlugin（param）// param为object类型
 webpack.optimize.CommonsChunkPlugin 移除 改用 optimization.splitChunks（与plugins同级）
 html-webpack-plugin: html-loader 编译后产生的字符串，会由 html-webpack-plugin 储存为 html 文件到输出目录
-
+mini-css-extract-plugin: webpack 4
+extract-text-webpack-plugin: webpack 4 之前，webpack4 报错，最新版beta，beta版本不支持hash
