@@ -13,3 +13,9 @@ webpack.optimize.CommonsChunkPlugin 移除 改用 optimization.splitChunks（与
 html-webpack-plugin: html-loader 编译后产生的字符串，会由 html-webpack-plugin 储存为 html 文件到输出目录
 mini-css-extract-plugin: webpack 4
 extract-text-webpack-plugin: webpack 4 之前，webpack4 报错，最新版beta，beta版本不支持hash
+
+webpack.optimization:
+                    minimize:(Boolean) 使用 TerserPlugin 压缩 bundle
+                    minimizer: (Array) 允许你通过提供一个或多个定制过的 TerserPlugin 实例，覆盖默认压缩工具(minimizer)
+                    splitChunks: (Object): 分块策略（SplitChunksPlugin）
+                    runtimeChunk：
