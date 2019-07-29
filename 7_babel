@@ -65,7 +65,7 @@ babel-polyfill/babel-runtime/babel-plugin-transform-runtime
 babel-polyfill/babel-runtime(https://zhuanlan.zhihu.com/p/58624930)
     babel 只是转换syntax层语法，babel 把 javascript 语法分为syntax和api
         api: 指那些我们可以通过函数重新覆盖的语法，比如includes,map,Promise,Map凡是我们能想到的重写都可以归属到api。
-        syntax: 像箭头函数，let,const,class等，我们在JavaScript在运行时是无法重写的。
+        syntax: 像箭头函数，let,const,class等，我们在JavaScript在运行时是无法重写的。（插件们干的事）
     babel-polyfill就是专门负责api层面的 --save
     babel-runtime和babel-polyfill一样，只是不会在原型链上做修改。babel-runtime使用还是要babel-polyfill一起配合使用 --save
 

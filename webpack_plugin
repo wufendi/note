@@ -14,8 +14,11 @@ html-webpack-plugin: html-loader 编译后产生的字符串，会由 html-webpa
 mini-css-extract-plugin: webpack 4
 extract-text-webpack-plugin: webpack 4 之前，webpack4 报错，最新版beta，beta版本不支持hash
 
-webpack.optimization:
+webpack.optimization:(https://yi-jy.com/2018/06/09/webpack-split-chunks/)
                     minimize:(Boolean) 使用 TerserPlugin 压缩 bundle
                     minimizer: (Array) 允许你通过提供一个或多个定制过的 TerserPlugin 实例，覆盖默认压缩工具(minimizer)
-                    splitChunks: (Object): 分块策略（SplitChunksPlugin）
-                    runtimeChunk：
+                    splitChunks: (Object): 默认动态导入模块，分块策略（SplitChunksPlugin） https://webpack.docschina.org/plugins/split-chunks-plugin/
+                    runtimeChunk：'single' true 'multiple' webpack定义
+                    noEmitOnErrors：
+                    namedModules：
+                    namedChunks：
